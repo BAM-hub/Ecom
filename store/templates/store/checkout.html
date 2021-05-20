@@ -1,0 +1,151 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="checkout-container">
+        <div class="form">
+            <form id="form">
+            <div class="user-info">
+                <input type="text" name="name" placeholder="name..">
+                <input type="email" name="email" placeholder="email..">
+            </div>
+
+            <div class="shopping-info">
+                <h5>
+                    shipping Information
+                </h5>
+            </div>
+            <div class="remove-on-digital">
+                <input type="text" name="address" placeholder="Address..">
+                <input type="text" name="city" placeholder="city..">
+                <input type="text" name="state" placeholder="state..">
+                <input type="text" name="zip code" placeholder="Zip Code..">
+                <input type="text" name="country" placeholder="country..">
+                
+            </div>
+            <button type="submit" id="formBtn"> Continue</button>
+             
+            <div class="paypal-options" style="visibility: hidden;">
+                <h5>paypal options</h5>
+                <button type="submit" id="make-payment">Make payment</button>
+            </form>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <div class="row">
+                <input type="button" value="Back to Cart">
+            </div>
+
+            <div class="row">
+                <h4>
+                    Order Summary
+                </h4>
+            </div>
+            {% for item in items %}
+            <div class="row">
+                <div class="product-image">
+                    {% if item.product.imageUrl == '' %}
+                        <img src="{% static 'images/placeholder.png' %}">
+                    
+                    {% else %}    
+                        <img src="{{ item.product.imageUrl }}">    
+                    {% endif %} 
+                </div>
+
+                <div class="item-name">
+                    <h4>{{ item.product.name }} </h4>
+                </div>
+        
+                <div class="price">
+                    <h4>{{item.product.price}}</h4>
+                </div>
+               
+                <div class="quantity">
+                    <div class="count">
+                        <h4>x{{ item.quantity }}</h4>
+                    </div>
+                </div>
+                
+            </div>
+            {% endfor %} 
+            <div class="row">
+                 <div class="total">
+                    <h4>Total: {{ order.get_cart_total }}</h4>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        var shipping = '{{ order.shipping }}'
+        var total = '{{ order.get_cart_total|floatformat:2 }}'
+
+        if(shipping == 'False'){
+            document.querySelector('.form h5').innerHTML = 'No items to be shipped'
+            document.querySelector('.remove-on-digital').innerHTML = ''
+            
+        }
+
+        if(user != 'AnonymousUser'){
+            document.querySelector('.user-info').style.display = 'none'
+        }
+
+        document.getElementById('make-payment').addEventListener('click', function(e){
+            submitFormData()
+        })
+
+        var form = document.querySelector('#form')
+            form.addEventListener('submit', function(e){
+            e.preventDefault()
+            document.querySelector('#formBtn').style.visibility = 'hidden'
+            document.querySelector('.paypal-options').style.visibility = 'visible'
+        })
+
+        function submitFormData(){
+            var userFormData ={
+                'name': null,
+                'email': null,
+                'total': total,
+            }
+            var shippingInfo = {
+                'address': null,
+                'city': null,
+                'state': null,
+                'zipcode': null,
+            }
+
+            if(shipping != 'False'){
+                shippingInfo.address = form.address.value
+                shippingInfo.city = form.city.value
+                shippingInfo.state = form.state.value
+                shippingInfo.zipcode = form.zipcode.value
+            }
+            if( user == 'AnonymousUser'){
+                userFormData.name = form.name.value
+                userFormData.email = form.email.value
+            }
+            
+            var url = '/process_order/'
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({
+                    'form': userFormData,
+                    'shipping': shippingInfo
+                }),
+            })
+            .then((response)=>response.json())
+            .then((data)=>{
+                alert("transaction complete")
+                window.location.href = "{% url 'store' %}"
+            })
+
+        }
+
+    </script>
+{% endblock content %}
+

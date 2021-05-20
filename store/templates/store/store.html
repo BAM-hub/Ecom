@@ -1,0 +1,29 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="items-container">
+
+       {% for product in products %}
+             <div class="item">
+                {% if product.imageUrl == '' %}
+                    <img src="{% static 'images/placeholder.png' %}">
+                   
+                {% else %}    
+                    <img src="{{ product.imageUrl }}">    
+                {% endif %} 
+                <h3>{{product.name}}</h3>
+                <div class="info">
+                
+                    <input data-product={{ product.id }} data-action="add" 
+                        type="button" value="Add to Cart" class="update-cart">
+
+                    <input type="button" value="View">
+                    <p>${{product.price|floatformat:2}}</p>
+                </div>
+            </div>
+        {% endfor %}
+
+      
+{% endblock content %}
+

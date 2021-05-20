@@ -1,0 +1,276 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+
+}
+
+a{
+    color: black;
+    text-decoration: none;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: .8px solid rgba(124, 123, 123, 0.7);
+    background: rgb(236, 236, 236);
+    height: 7vh;
+}
+
+.left, .right {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    align-items: center;
+}
+
+.left h3{
+    padding: 0 1rem;
+}
+
+.right{
+    justify-content: flex-end;
+    padding: 0 1.4rem;
+    justify-content: space-around;
+}
+
+.right input{
+    background: yellow;
+    border: none;
+    padding: .5rem;
+}
+
+.right i{
+    position: relative;
+}
+
+.item-count{
+    position: absolute;
+    top: -.7rem;
+    right: -1rem;
+    background: rgb(255, 74, 74);
+    padding: 0.1rem;
+    border-radius: 1rem;
+    width:1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(236, 236, 236);
+}
+
+.items-container {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.item{
+    width: 30%;
+    margin: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border: .8px solid rgba(124, 123, 123, 0.7);
+}
+
+.item img{
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+.info{
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-top: .4px solid black;
+    padding: 1rem 0;;
+}
+
+.items-container h3{
+    padding: 1rem 0;
+}
+
+.info input, .cart1 input{
+    padding: .2rem;
+    border: .1rem solid rgb(123, 216, 104);
+    background: white;
+    color: rgb(123, 216, 104);
+}
+
+/* cart style */
+
+.cart1{
+    width:90%;
+    padding: 1rem .2rem;
+    background: rgb(236, 236, 236);
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cart1-info{
+    margin-top: .4rem;
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(124, 123, 123, 0.7);
+}
+
+
+.cart2{
+    width: 90%;
+}
+
+.cart2 *{
+    width: 20%;
+    margin: 1rem 0;
+}
+
+.row{
+    padding: .4rem .2rem;
+    background: rgb(236, 236, 236);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart2 .product-image{
+    width: 15%;
+}
+
+.cart2 img{
+    height: 4rem;
+    width: 80%;
+}
+
+.quantity{
+    position: relative;
+}
+
+.quantity .up button{
+    position: absolute;
+    top: -21%;
+    right: 90%;
+    width: .6rem;
+    height: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: none;
+    background: rgba(253, 255, 255, .0);
+}
+
+.quantity .up button i:hover, .quantity .down button:hover i{
+    cursor: pointer;
+    color:rgb(129, 128, 126);
+}
+
+.quantity .down button{
+    position: absolute;
+    bottom: -21%;
+    right: 90%;
+    width: .6rem;
+    height: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: rgba(253, 255, 255, .0);
+}
+
+
+/* checkout style */
+
+.checkout-container{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkout-container .form{
+    margin-top: 1rem;
+    padding: 1rem .4rem;
+    width: 50%;
+    background: rgb(236, 236, 236);
+}
+
+.form input{
+    padding: .3rem 0;
+    margin: .4rem 0;
+}
+
+.shopping-info{
+    padding: 1rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(124, 123, 123, 0.7);
+    border-bottom: 1px solid rgba(124, 123, 123, 0.7);
+}
+
+.form button{
+    width: 100%;
+    padding: .2rem;
+    border: .1rem solid rgb(123, 216, 104);
+    background: white;
+    color: rgb(123, 216, 104);
+}
+
+.order-summary{
+    margin-top: 1rem;
+    width: 48%;
+}
+
+.order-summary .row{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-top: .1px solid rgba(124, 123, 123, 0.3);
+    border-bottom: .1px solid rgba(124, 123, 123, 0.3);
+}
+
+.order-summary .product-image{
+    width: 20%;
+}
+
+.order-summary img{
+    width: 100%;
+}
+
+.order-summary .quantity{
+    width: 5%;
+    margin-right: 1rem;
+
+}
+.order-summary .price,
+.order-summary .item-name{
+    width: 35%;
+    padding: 0 2rem;
+}
+
+
+.order-summary input{
+    width: 90%;
+    padding: .2rem;
+    border: .1rem solid rgb(123, 216, 104);
+    background: white;
+    color: rgb(123, 216, 104);
+}
