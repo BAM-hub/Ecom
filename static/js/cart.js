@@ -21,7 +21,6 @@ for(var i = 0; i< updateBtns.length; i++){
 }
 
 function updateUserOrder(productId, action){
-    console.log('hi user')
     //to wich viwe i will send data this case is the view i routed
     var url = '/update_item/'
     //fetch ajax request to the server
@@ -29,7 +28,7 @@ function updateUserOrder(productId, action){
         method: 'POST',
         headers: {//the content will be in json format
             'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,//django csrf code in main.html
+            'X-CSRFToken': csrftoken, //django csrf code in main.html
         },
         body: JSON.stringify({//this is the data converted to json format
             'productId': productId, 'action': action
