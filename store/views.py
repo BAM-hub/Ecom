@@ -66,7 +66,7 @@ def cart(request):
                 if product.digital == False:
                     order['shipping'] = True
             except:
-                pass        
+                pass
 
     return render(request, 'store/cart.html', {
         'page': page,
