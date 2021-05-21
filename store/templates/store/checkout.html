@@ -5,6 +5,7 @@
     <div class="checkout-container">
         <div class="form">
             <form id="form">
+            {% csrf_token %}
             <div class="user-info">
                 <input type="text" name="name" placeholder="name..">
                 <input type="email" name="email" placeholder="email..">
@@ -98,6 +99,7 @@
         var form = document.querySelector('#form')
             form.addEventListener('submit', function(e){
             e.preventDefault()
+            var csrftoken = document.querySelector('#form')['0'].value   
             document.querySelector('#formBtn').style.visibility = 'hidden'
             document.querySelector('.paypal-options').style.visibility = 'visible'
         })

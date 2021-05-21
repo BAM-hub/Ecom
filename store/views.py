@@ -88,7 +88,6 @@ def updateItem(request):
     if orderItem.quantity < 1:
         orderItem.delete()            
 
-
 def processOrder(request):
 
     transaction_id = datetime.datetime.now().timestamp()
