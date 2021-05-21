@@ -11,13 +11,31 @@ for(var i = 0; i< updateBtns.length; i++){
         console.log('user ', user)
 
         //check if user is logged in or not
-        if(user === 'AnonymousUser'){
-            console.log('not logged in')
+        if(user == 'AnonymousUser'){
+           addCookieItem(productId, action)
         }else{
             //if yes send the request to the server
             updateUserOrder(productId, action)
         }
     })
+}
+
+function addCookieItem(productId, action){
+    if(action == 'add'){
+        if (cart[productId] == undefined){
+            cart[productId] = {'quantity':1}
+        }else{
+            cart[productId]['quantity'] += 1
+        }
+    }
+    if(action == 'remove'){
+        cart[productId]['quantity'] -= 1
+        if(cart[productId]['quantity'] < 1){
+            delete cart[productId]
+        }
+    }
+    document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    location.reload()
 }
 
 function updateUserOrder(productId, action){

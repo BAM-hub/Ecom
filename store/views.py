@@ -35,9 +35,38 @@ def cart(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}    
         order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
         items = []
-        cartItems = order.get_cart_items
+        cartItems = order['get_cart_items']
+
+        for i in cart:
+            try:
+                cartItems += cart[i]['quantity']
+                product = Product.objects.get(id=i)
+                total = (product.price * cart[i]['quantity'])
+
+                order['get_cart_total'] += total
+                order['get_cart_items'] += cart[i]['quantity']
+                item = {
+                    'product':{
+                        'id': product.id,
+                        'name': product.name,
+                        'price': product.price,
+                        'imageUrl': product.imageUrl,
+                    },
+                    'quantity': cart[i]['quantity'],
+                    'get_total': total,
+                }
+                items.append(item)
+
+                if product.digital == False:
+                    order['shipping'] = True
+            except:
+                pass        
 
     return render(request, 'store/cart.html', {
         'page': page,
@@ -56,7 +85,7 @@ def checkOut(request):
     else:
         order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
         items = []
-        cartItems = order.get_cart_items
+        cartItems = order['get_cart_items']
 
     return render(request, 'store/checkout.html', {
         'page': page,
