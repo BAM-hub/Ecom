@@ -7,17 +7,10 @@ import datetime
 # Create your views here.
 
 def store(request):
-
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartItems = order.get_cart_items
-    else:
-        cookieData = cookieCart(request)
-        cartItems = cookieData['cartItems']
-
     page = 'store'
+    data = cartData(request)
+    cartItems = data['cartItems']
+   
     products = Product.objects.all()
 
     return render(request, 'store/store.html', {
@@ -28,16 +21,12 @@ def store(request):
 
 def cart(request):
     page = 'cart'
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartItems = order.get_cart_items
-    else:
-        cookieData = cookieCart(request)
-        cartItems = cookieData['cartItems']
-        order = cookieData['order']
-        items = cookieData['items']
+
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
+
 
     return render(request, 'store/cart.html', {
         'page': page,
@@ -48,16 +37,11 @@ def cart(request):
 
 def checkOut(request):
     page = 'checkout'
-    if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        items = order.orderitem_set.all()
-        cartItems = order.get_cart_items
-    else:
-        cookieData = cookieCart(request)
-        cartItems = cookieData['cartItems']
-        order = cookieData['order']
-        items = cookieData['items']
+    
+    data = cartData(request)
+    cartItems = data['cartItems']
+    order = data['order']
+    items = data['items']
 
     return render(request, 'store/checkout.html', {
         'page': page,
