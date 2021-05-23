@@ -260,6 +260,7 @@ a{
     margin-right: 1rem;
 
 }
+
 .order-summary .price,
 .order-summary .item-name{
     width: 35%;
@@ -273,4 +274,22 @@ a{
     border: .1rem solid rgb(123, 216, 104);
     background: white;
     color: rgb(123, 216, 104);
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 12px;
+    }
+
+    .items-container {
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .item{
+        width: 60%;
+    }
 }
