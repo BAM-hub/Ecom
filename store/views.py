@@ -55,8 +55,7 @@ def updateItem(request):
     productId = data['productId']
     action = data['action']
     
-    print (action, productId)
-
+    
     customer = request.user.customer
     product = Product.objects.get(id=productId)
     #we use get or create quz if the order already exists we want to add to it not creat a new one
@@ -71,7 +70,9 @@ def updateItem(request):
     orderItem.save()
 
     if orderItem.quantity < 1:
-        orderItem.delete()            
+        orderItem.delete()
+        
+    return JsonResponse("done", safe=False)                
 
 def processOrder(request):
 

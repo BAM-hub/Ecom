@@ -46,7 +46,7 @@ function updateUserOrder(productId, action){
         method: 'POST',
         headers: {//the content will be in json format
             'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken, //django csrf code in main.html
+            'X-CSRFToken': csrftoken //django csrf code in main.html
         },
         body: JSON.stringify({//this is the data converted to json format
             'productId': productId, 'action': action
